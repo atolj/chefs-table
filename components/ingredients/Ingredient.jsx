@@ -14,7 +14,7 @@ class Ingredient extends Component {
         return (
             <li className={active}>
                 <a onClick={this.onClick.bind(this)}>
-                    {ingredient.name}
+                    {ingredient.name + " x " + ingredient.amount}
                 </a>
             </li>
         )

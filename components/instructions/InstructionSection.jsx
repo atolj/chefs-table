@@ -7,15 +7,13 @@ class InstructionSection extends Component {
         return (
             <div>
                 <InstructionList instructions={this.props.instructions}/>
-                <button type="button" className="btn" onClick={this.props.addInstruction}>Add Step</button>
             </div>
         )
     }
 }
 
 InstructionSection.propTypes = {
-    instructions: React.PropTypes.array.isRequired,
-    addInstruction: React.PropTypes.func.isRequired
+    instructions: React.PropTypes.array.isRequired
 }
 
 export default InstructionSection

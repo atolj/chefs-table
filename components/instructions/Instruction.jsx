@@ -15,14 +15,11 @@ class Instruction extends Component {
 
     render() {
         const {instruction} = this.props;
-        return (
-            <li>
-                <div className="form-group">
+        return <div className="form-group">
                     <label>Step {instruction.id + 1}:</label>
                     <textarea className="form-control" rows="5" value={instruction.value} onChange={this.handleChange}/>
-                </div>
-            </li>
-        )
+               </div>
+
     }
 }
 

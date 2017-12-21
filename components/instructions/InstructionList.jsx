@@ -5,15 +5,13 @@ class InstructionList extends Component {
 
     render() {
         return (
-            <div>
-                <ul>{
-                    this.props.instructions.map(instruct => {
+            <div>{this.props.instructions.map(instruct => {
                         return <Instruction
                                 instruction={instruct}
                                 key={instruct.id}
                             />
-                    })
-                }</ul>
+                        })
+                 }
             </div>
         )
     }
