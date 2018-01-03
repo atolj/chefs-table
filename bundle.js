@@ -56,11 +56,11 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _componentsAppJsx = __webpack_require__(159);
+	var _componentsEditAppJsx = __webpack_require__(159);
 
-	var _componentsAppJsx2 = _interopRequireDefault(_componentsAppJsx);
+	var _componentsEditAppJsx2 = _interopRequireDefault(_componentsEditAppJsx);
 
-	_reactDom2['default'].render(_react2['default'].createElement(_componentsAppJsx2['default'], null), document.getElementById('root'));
+	_reactDom2['default'].render(_react2['default'].createElement(_componentsEditAppJsx2['default'], null), document.getElementById('root'));
 
 /***/ }),
 /* 1 */
@@ -19801,8 +19801,9 @@
 	        _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
 	        this.state = {
 	            ingredients: [],
-	            instructions: [],
-	            activeIngredient: {}
+	            instructions: [{ id: 0, value: '' }],
+	            activeIngredient: {},
+	            receipt: ''
 	        };
 	    }
 
@@ -19830,24 +19831,78 @@
 	            this.setState({ instructions: instructions });
 	        }
 	    }, {
+	        key: 'saveReceipt',
+	        value: function saveReceipt() {}
+	    }, {
+	        key: 'discardReceipt',
+	        value: function discardReceipt() {}
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'app' },
+	                'section',
+	                null,
 	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'nav' },
-	                    _react2['default'].createElement(_ingredientsIngredientSectionJsx2['default'], { ingredients: this.state.ingredients,
-	                        activeIngredient: this.state.activeIngredient,
-	                        addIngredient: this.addIngredient.bind(this),
-	                        setIngredient: this.setIngredient.bind(this) })
+	                    'a',
+	                    { href: 'https://getbootstrap.com', className: 'd-block p-3 text-center text-white bg-primary b4b' },
+	                    'There\'s a newer version of Bootstrap 4!'
 	                ),
 	                _react2['default'].createElement(
 	                    'div',
-	                    null,
-	                    _react2['default'].createElement(_instructionsInstructionSectionJsx2['default'], { instructions: this.state.instructions,
-	                        addInstruction: this.addInstruction.bind(this) })
+	                    { className: 'container' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'row ' },
+	                        _react2['default'].createElement(
+	                            'h2',
+	                            null,
+	                            this.state.receipt
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'row justify-content-md-center' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-9' },
+	                            _react2['default'].createElement(_ingredientsIngredientSectionJsx2['default'], { ingredients: this.state.ingredients,
+	                                activeIngredient: this.state.activeIngredient,
+	                                addIngredient: this.addIngredient.bind(this),
+	                                setIngredient: this.setIngredient.bind(this) })
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'row justify-content-md-center' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-9' },
+	                            _react2['default'].createElement(_instructionsInstructionSectionJsx2['default'], { instructions: this.state.instructions })
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'row justify-content-md-center' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-9' },
+	                            _react2['default'].createElement(
+	                                'button',
+	                                { type: 'button', className: 'btn btn-outline-primary btn-block', onClick: this.addInstruction.bind(this) },
+	                                '+'
+	                            ),
+	                            _react2['default'].createElement(
+	                                'button',
+	                                { type: 'button', className: 'btn btn-danger mt-3', onClick: this.discardReceipt.bind(this) },
+	                                'Cancel'
+	                            ),
+	                            _react2['default'].createElement(
+	                                'button',
+	                                { type: 'button', className: 'btn btn-success float-right mt-3', onClick: this.saveReceipt.bind(this) },
+	                                'Save'
+	                            )
+	                        )
+	                    )
 	                )
 	            );
 	        }
@@ -19856,7 +19911,7 @@
 	    return App;
 	})(_react.Component);
 
-	exports['default'] = App;
+	exports['default'] = EditApp;
 	module.exports = exports['default'];
 
 /***/ }),
@@ -20136,7 +20191,7 @@
 	                _react2['default'].createElement(
 	                    'a',
 	                    { onClick: this.onClick.bind(this) },
-	                    ingredient.name
+	                    ingredient.name + " x " + ingredient.amount
 	                )
 	            );
 	        }
@@ -20197,12 +20252,7 @@
 	            return _react2['default'].createElement(
 	                'div',
 	                null,
-	                _react2['default'].createElement(_InstructionListJsx2['default'], { instructions: this.props.instructions }),
-	                _react2['default'].createElement(
-	                    'button',
-	                    { type: 'button', className: 'btn', onClick: this.props.addInstruction },
-	                    'Add Step'
-	                )
+	                _react2['default'].createElement(_InstructionListJsx2['default'], { instructions: this.props.instructions })
 	            );
 	        }
 	    }]);
@@ -20211,8 +20261,7 @@
 	})(_react.Component);
 
 	InstructionSection.propTypes = {
-	    instructions: _react2['default'].PropTypes.array.isRequired,
-	    addInstruction: _react2['default'].PropTypes.func.isRequired
+	    instructions: _react2['default'].PropTypes.array.isRequired
 	};
 
 	exports['default'] = InstructionSection;
@@ -20261,20 +20310,12 @@
 	            return _react2['default'].createElement(
 	                'div',
 	                null,
-	                _react2['default'].createElement(
-	                    'ul',
-	                    null,
-	                    this.props.instructions.map(function (instruct) {
-	                        return _react2['default'].createElement(
-	                            'li',
-	                            null,
-	                            _react2['default'].createElement(_InstructionJsx2['default'], {
-	                                instruction: instruct,
-	                                key: instruct.id.toString()
-	                            })
-	                        );
-	                    })
-	                )
+	                this.props.instructions.map(function (instruct) {
+	                    return _react2['default'].createElement(_InstructionJsx2['default'], {
+	                        instruction: instruct,
+	                        key: instruct.id
+	                    });
+	                })
 	            );
 	        }
 	    }]);
@@ -20326,20 +20367,27 @@
 	    _createClass(Instruction, [{
 	        key: "handleChange",
 	        value: function handleChange(event) {
-	            this.setState({ value: event.target.value });
+	            var instruction = this.props.instruction;
+
+	            instruction.value = event.target.value;
+	            this.setState(instruction);
 	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
+	            var instruction = this.props.instruction;
+
 	            return _react2["default"].createElement(
 	                "div",
 	                { className: "form-group" },
 	                _react2["default"].createElement(
 	                    "label",
 	                    null,
-	                    "Step:"
+	                    "Step ",
+	                    instruction.id + 1,
+	                    ":"
 	                ),
-	                _react2["default"].createElement("textarea", { className: "form-control", rows: "5", value: this.props.value, onChange: this.handleChange })
+	                _react2["default"].createElement("textarea", { className: "form-control", rows: "5", value: instruction.value, onChange: this.handleChange })
 	            );
 	        }
 	    }]);
@@ -20348,7 +20396,7 @@
 	})(_react.Component);
 
 	Instruction.propTypes = {
-	    instruction: _react2["default"].PropTypes.array.isRequired
+	    instruction: _react2["default"].PropTypes.object.isRequired
 	};
 
 	exports["default"] = Instruction;

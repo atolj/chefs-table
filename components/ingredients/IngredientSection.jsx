@@ -7,9 +7,9 @@ class IngredientSection extends Component {
         return (
             <div className='support panel panel-primary'>
                 <div className='panel-heading'>
-                    <strong>Ingredient</strong>
+                    <strong>Ingredients</strong>
                 </div>
-                <div className='panel-body ingredients'>
+                <div className='panel-body'>
                     <IngredientList {...this.props} />
                     <IngredientForm {...this.props} />
                 </div>

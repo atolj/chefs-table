@@ -13,5 +13,10 @@
     "react": "^0.14.9",
     "react-dom": "^0.14.9",
     "webpack": "^1.12.2"
+  },
+  "dependencies": {
+    "react-bootstrap-validation": "^0.1.11",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
   }
 }
